@@ -1,15 +1,16 @@
-import { AfterContentInit, AfterViewInit, Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, OnChanges, OnInit, OnDestroy, SimpleChanges } from '@angular/core';
 
-// ngOnChange --> ngOnInit --> ngDoCheck --> ngAfterContentInit --> ngAfterViewInit
+// ngOnChange --> ngOnInit --> ngDoCheck --> ngAfterContentInit --> ngAfterViewInit --> ngAfterViewCheck
 
 @Component({
   selector: 'app-interval',
   templateUrl: './interval.component.html',
   styleUrls: ['./interval.component.css']
 })
-export class IntervalComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterViewInit{
+export class IntervalComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterViewInit, AfterViewChecked, OnDestroy{
 
   count: number = 0;
+  fullName:string='';
 
   interval: any;
 
@@ -31,6 +32,19 @@ export class IntervalComponent implements OnInit, OnChanges, DoCheck, AfterConte
 
   ngAfterViewInit(): void {
     console.log('Interval component AfterViewInit');
+  }
+
+  ngAfterViewChecked(): void {
+    console.log('Interval component AfterViewChecked');
+  }
+
+  ngOnDestroy():void{
+    console.log('Interval component OnDestroy');
+    this.stopCount();
+  }
+
+  onChange(){
+    console.log('onChange called');
   }
 
   startCount(){
